@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
+const glowOffset = 180;
+
 export default function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
-  const glowOffset = 180;
 
   useEffect(() => {
     const handleMove = (event: PointerEvent) => {
