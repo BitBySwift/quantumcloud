@@ -365,7 +365,13 @@ export default function Home() {
               Private software development & advanced technology company.
             </p>
             <p className="text-sm text-white/60">
-              contact@quantumcloud.ai · +1 (415) 555-0199
+              <a className="hover:text-white" href="mailto:contact@quantumcloud.ai">
+                contact@quantumcloud.ai
+              </a>
+              <span className="px-2 text-white/30">•</span>
+              <a className="hover:text-white" href="tel:+14155550199">
+                +1 (415) 555-0199
+              </a>
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
@@ -394,13 +400,28 @@ export default function Home() {
           <div className="flex flex-col gap-4 text-sm text-white/60">
             <p className="uppercase tracking-[0.3em] text-white/40">Social</p>
             <div className="flex gap-4">
-              <a className="transition hover:text-white" href="#">
+              <a
+                className="transition hover:text-white"
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+              >
                 LinkedIn
               </a>
-              <a className="transition hover:text-white" href="#">
+              <a
+                className="transition hover:text-white"
+                href="https://x.com"
+                target="_blank"
+                rel="noreferrer"
+              >
                 X
               </a>
-              <a className="transition hover:text-white" href="#">
+              <a
+                className="transition hover:text-white"
+                href="https://dribbble.com"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Dribbble
               </a>
             </div>

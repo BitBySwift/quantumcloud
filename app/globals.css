@@ -6,8 +6,8 @@
   --electric: #2a78ff;
   --cyan: #58e6ff;
   --glow-soft: rgba(88, 230, 255, 0.18);
-  --font-space: "Space Grotesk", "Inter", "SF Pro Display", system-ui, sans-serif;
-  --font-manrope: "Manrope", "Inter", "SF Pro Text", system-ui, sans-serif;
+  --font-space: "SF Pro Display", "Inter", system-ui, sans-serif;
+  --font-manrope: "SF Pro Text", "Inter", system-ui, sans-serif;
 }
 
 @theme inline {

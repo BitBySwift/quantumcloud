@@ -4,13 +4,14 @@ import { useEffect, useRef } from "react";
 
 export default function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
+  const glowOffset = 180;
 
   useEffect(() => {
     const handleMove = (event: PointerEvent) => {
       const glow = glowRef.current;
       if (!glow) return;
-      const x = event.clientX - 180;
-      const y = event.clientY - 180;
+      const x = event.clientX - glowOffset;
+      const y = event.clientY - glowOffset;
       glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
