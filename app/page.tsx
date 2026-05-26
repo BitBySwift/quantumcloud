@@ -299,16 +299,16 @@ export default function Home() {
             <a
               href="https://forms.gle/t7dCtuDMzsnx37N76"
               target="_blank"
-              rel="noreferrer"
-              className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+              rel="noopener noreferrer"
+              className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)] active:scale-95"
             >
               Apply Now
             </a>
             <Link
               href="/why-join"
               target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-cyan/60 hover:text-white"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-cyan/60 hover:text-white active:scale-95"
             >
               Why Join QC
             </Link>
@@ -396,38 +396,99 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
-            <a className="transition hover:text-white" href="#about">
+            <Link
+              className="transition hover:text-white"
+              href="/about-quantum-cloud#about-us"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              About Us
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/about-quantum-cloud#our-story"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Our Story
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/about-quantum-cloud#founder-message"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Founder Message
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/#about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               About
-            </a>
-            <a className="transition hover:text-white" href="#services">
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/#services"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Services
-            </a>
-            <Link className="transition hover:text-white" href="/careers">
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/careers"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Careers
             </Link>
-            <Link className="transition hover:text-white" href="/why-join">
+            <Link
+              className="transition hover:text-white"
+              href="/why-join"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Why Join QC
             </Link>
-            <Link className="transition hover:text-white" href="/refund-policy">
+            <Link
+              className="transition hover:text-white"
+              href="/refund-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Refund Policy
             </Link>
-            <Link className="transition hover:text-white" href="/privacy-policy">
+            <Link
+              className="transition hover:text-white"
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Privacy Policy
             </Link>
             <Link
               className="transition hover:text-white"
               href="/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Terms & Conditions
             </Link>
-            <Link className="transition hover:text-white" href="/#contact">
+            <Link
+              className="transition hover:text-white"
+              href="/#contact"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Contact
             </Link>
             <Link
               className="transition hover:text-white"
               href="/start-project"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Start Project
             </Link>
