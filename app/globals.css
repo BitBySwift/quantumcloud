@@ -121,6 +121,15 @@ body {
   background-size: 160px 160px;
 }
 
+.carousel-track {
+  animation: carousel-scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
 @keyframes float {
   0%,
   100% {
@@ -128,6 +137,15 @@ body {
   }
   50% {
     transform: translateY(-18px);
+  }
+}
+
+@keyframes carousel-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
