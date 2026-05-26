@@ -68,14 +68,14 @@ export default function TermsAndConditions() {
 
         <section className="glass-panel glow-card flex flex-col gap-6 rounded-[28px] px-6 py-10 sm:px-10">
           <div className="rounded-2xl border border-cyan/40 bg-cyan/10 px-5 py-4 text-sm text-white/80">
-            <p className="text-base font-semibold text-cyan">
-              Important Refund Policy
-            </p>
+            <p className="text-base font-semibold text-cyan">Refunds</p>
             <p className="mt-2 text-sm text-white/80">
-              All payments made to Quantum Cloud are final and non-refundable
-              once a transaction has been completed, regardless of project
-              stage, service usage, cancellation, or client decision.
+              Refund eligibility and processing are governed by our official
+              Refund Policy.
             </p>
+            <Link className="mt-3 inline-flex text-cyan hover:text-white" href="/refund-policy">
+              View Refund Policy →
+            </Link>
           </div>
           {sections.map((section) => (
             <div key={section.title} className="flex flex-col gap-2">

@@ -100,12 +100,14 @@ export default function Home() {
             Vision
           </a>
         </nav>
-        <a
-          href="#contact"
+        <Link
+          href="/start-project"
+          target="_blank"
+          rel="noreferrer"
           className="rounded-full border border-cyan/30 bg-white/5 px-5 py-2 text-sm text-cyan transition hover:border-cyan/70 hover:text-white"
         >
           Start a Project
-        </a>
+        </Link>
       </header>
 
       <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pb-24 sm:px-10">
@@ -134,18 +136,22 @@ export default function Home() {
                 advanced digital innovation.
               </motion.p>
               <motion.div {...fadeUp} className="flex flex-wrap gap-4">
-                <a
-                  href="#careers"
+                <Link
+                  href="/careers"
+                  target="_blank"
+                  rel="noreferrer"
                   className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
                 >
                   Explore Careers
-                </a>
-                <a
-                  href="#contact"
+                </Link>
+                <Link
+                  href="/start-project"
+                  target="_blank"
+                  rel="noreferrer"
                   className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-cyan/60 hover:text-white"
                 >
                   Start a Project
-                </a>
+                </Link>
               </motion.div>
             </div>
 
@@ -282,19 +288,21 @@ export default function Home() {
           </div>
           <motion.div {...fadeUp} className="flex flex-wrap gap-4">
             <a
-              href="https://forms.gle/8VB4CFpsNi9Lb11s9"
+              href="https://forms.gle/t7dCtuDMzsnx37N76"
               target="_blank"
               rel="noreferrer"
               className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
             >
               Apply Now
             </a>
-            <a
-              href="#why-join"
+            <Link
+              href="/why-join"
+              target="_blank"
+              rel="noreferrer"
               className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-cyan/60 hover:text-white"
             >
               Why Join QC
-            </a>
+            </Link>
           </motion.div>
         </section>
 
@@ -381,12 +389,15 @@ export default function Home() {
             <a className="transition hover:text-white" href="#services">
               Services
             </a>
-            <a className="transition hover:text-white" href="#careers">
+            <Link className="transition hover:text-white" href="/careers">
               Careers
-            </a>
-            <a className="transition hover:text-white" href="#why-join">
+            </Link>
+            <Link className="transition hover:text-white" href="/why-join">
               Why Join QC
-            </a>
+            </Link>
+            <Link className="transition hover:text-white" href="/refund-policy">
+              Refund Policy
+            </Link>
             <Link className="transition hover:text-white" href="/privacy-policy">
               Privacy Policy
             </Link>
@@ -395,6 +406,17 @@ export default function Home() {
               href="/terms-and-conditions"
             >
               Terms & Conditions
+            </Link>
+            <Link className="transition hover:text-white" href="/#contact">
+              Contact
+            </Link>
+            <Link
+              className="transition hover:text-white"
+              href="/start-project"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Start Project
             </Link>
           </div>
           <div className="flex flex-col gap-4 text-sm text-white/60">
@@ -426,7 +448,9 @@ export default function Home() {
               </a>
             </div>
             <a
-              href="https://forms.gle/8VB4CFpsNi9Lb11s9"
+              href="https://forms.gle/t7dCtuDMzsnx37N76"
+              target="_blank"
+              rel="noreferrer"
               className="text-cyan transition hover:text-white"
             >
               Careers Application
