@@ -35,7 +35,7 @@ const logoFrameClass = "relative h-10 w-24 shrink-0 sm:h-11 sm:w-28";
 const logoInnerClass = "relative h-full w-full box-border p-1";
 const logoImageClass =
   "object-contain transition duration-300 ease-out brightness-110 drop-shadow-[0_0_6px_rgba(88,230,255,0.35)] group-hover:scale-[1.03] group-hover:brightness-125 group-hover:drop-shadow-[0_0_18px_rgba(88,230,255,0.65)]";
-const brandGroupClass = "group flex items-center gap-2 sm:gap-3";
+const brandGroupClass = "group flex items-center gap-1.5 sm:gap-2";
 const brandTextClass = "flex flex-col gap-0.5 leading-tight";
 const brandNameClass = "text-sm font-semibold text-cyan/80";
 const brandTaglineClass = "text-xs uppercase tracking-[0.3em] text-white/40";
@@ -435,14 +435,6 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               Founder Message
-            </Link>
-            <Link
-              className={footerLinkClass}
-              href="/#about"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              About
             </Link>
             <Link
               className={footerLinkClass}
