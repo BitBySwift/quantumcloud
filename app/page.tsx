@@ -31,10 +31,15 @@ const roles = [
 const logoSrc =
   "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
 const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
-const logoFrameClass = "relative h-10 w-28 shrink-0 sm:h-11 sm:w-32";
+const logoFrameClass = "relative h-10 w-24 shrink-0 sm:h-11 sm:w-28";
 const logoInnerClass = "relative h-full w-full box-border p-1";
 const logoImageClass =
   "object-contain transition duration-300 ease-out brightness-110 drop-shadow-[0_0_6px_rgba(88,230,255,0.35)] group-hover:scale-[1.03] group-hover:brightness-125 group-hover:drop-shadow-[0_0_18px_rgba(88,230,255,0.65)]";
+const brandGroupClass = "group flex items-center gap-2 sm:gap-3";
+const brandTextClass = "flex flex-col gap-0.5 leading-tight";
+const brandNameClass = "text-sm font-semibold text-cyan/80";
+const brandTaglineClass = "text-xs uppercase tracking-[0.3em] text-white/40";
+const footerLinkClass = "transition-colors duration-300 hover:text-white";
 
 const features = [
   "Work on futuristic technologies",
@@ -84,7 +89,7 @@ export default function Home() {
       <div className="pointer-events-none absolute -top-40 right-0 h-[480px] w-[480px] hero-orb opacity-70" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8 sm:px-10">
-        <div className="group flex items-center gap-3">
+        <div className={brandGroupClass}>
           <div className={logoFrameClass}>
             <div className={logoInnerClass}>
               <Image
@@ -98,24 +103,22 @@ export default function Home() {
               />
             </div>
           </div>
-          <div>
-            <p className="text-sm text-cyan/80">Quantum Cloud</p>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-              Private Technology
-            </p>
+          <div className={brandTextClass}>
+            <p className={brandNameClass}>Quantum Cloud</p>
+            <p className={brandTaglineClass}>Beyond Limits. Beyond Tomorrow.</p>
           </div>
         </div>
         <nav className="hidden items-center gap-6 text-sm text-white/60 md:flex">
-          <a className="transition hover:text-white" href="#about">
+          <a className={footerLinkClass} href="#about">
             About
           </a>
-          <a className="transition hover:text-white" href="#services">
+          <a className={footerLinkClass} href="#services">
             Services
           </a>
-          <a className="transition hover:text-white" href="#careers">
+          <a className={footerLinkClass} href="#careers">
             Careers
           </a>
-          <a className="transition hover:text-white" href="#vision">
+          <a className={footerLinkClass} href="#vision">
             Vision
           </a>
         </nav>
@@ -375,9 +378,9 @@ export default function Home() {
         id="contact"
         className="relative z-10 border-t border-white/10 bg-[#05060a] px-6 py-12 sm:px-10"
       >
-        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 sm:grid-cols-2 lg:grid-cols-[1.15fr_1fr_1fr] lg:gap-12">
           <div className="flex flex-col gap-4">
-            <div className="group flex items-center gap-3">
+            <div className={brandGroupClass}>
               <div className={logoFrameClass}>
                 <div className={logoInnerClass}>
                   <Image
@@ -390,29 +393,27 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div>
-                <p className="text-sm text-cyan/80">Quantum Cloud</p>
-                <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-                  Beyond Limits. Beyond Tomorrow.
-                </p>
+              <div className={brandTextClass}>
+                <p className={brandNameClass}>Quantum Cloud</p>
+                <p className={brandTaglineClass}>Beyond Limits. Beyond Tomorrow.</p>
               </div>
             </div>
             <p className="text-sm text-white/60">
               Private software development & advanced technology company.
             </p>
             <p className="text-sm text-white/60">
-              <a className="hover:text-white" href="mailto:contact@quantumcloud.ai">
+              <a className={footerLinkClass} href="mailto:contact@quantumcloud.ai">
                 contact@quantumcloud.ai
               </a>
               <span className="px-2 text-white/30">•</span>
-              <a className="hover:text-white" href="tel:+14155550199">
+              <a className={footerLinkClass} href="tel:+14155550199">
                 +1 (415) 555-0199
               </a>
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/about-quantum-cloud#about-us"
               target="_blank"
               rel="noopener noreferrer"
@@ -420,7 +421,7 @@ export default function Home() {
               About Us
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/about-quantum-cloud#our-story"
               target="_blank"
               rel="noopener noreferrer"
@@ -428,7 +429,7 @@ export default function Home() {
               Our Story
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/about-quantum-cloud#founder-message"
               target="_blank"
               rel="noopener noreferrer"
@@ -436,7 +437,7 @@ export default function Home() {
               Founder Message
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/#about"
               target="_blank"
               rel="noopener noreferrer"
@@ -444,7 +445,7 @@ export default function Home() {
               About
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/#services"
               target="_blank"
               rel="noopener noreferrer"
@@ -452,7 +453,7 @@ export default function Home() {
               Services
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/careers"
               target="_blank"
               rel="noopener noreferrer"
@@ -460,7 +461,7 @@ export default function Home() {
               Careers
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/why-join"
               target="_blank"
               rel="noopener noreferrer"
@@ -468,7 +469,7 @@ export default function Home() {
               Why Join QC
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/refund-policy"
               target="_blank"
               rel="noopener noreferrer"
@@ -476,7 +477,7 @@ export default function Home() {
               Refund Policy
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/privacy-policy"
               target="_blank"
               rel="noopener noreferrer"
@@ -484,7 +485,7 @@ export default function Home() {
               Privacy Policy
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/terms-and-conditions"
               target="_blank"
               rel="noopener noreferrer"
@@ -492,15 +493,15 @@ export default function Home() {
               Terms & Conditions
             </Link>
             <Link
-              className="transition hover:text-white"
-              href="/#contact"
+              className={footerLinkClass}
+              href="/contact"
               target="_blank"
               rel="noopener noreferrer"
             >
               Contact
             </Link>
             <Link
-              className="transition hover:text-white"
+              className={footerLinkClass}
               href="/start-project"
               target="_blank"
               rel="noopener noreferrer"
@@ -529,7 +530,7 @@ export default function Home() {
                 <span className="sr-only">LinkedIn</span>
               </a>
               <a
-                className="transition hover:text-white"
+                className={footerLinkClass}
                 href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
@@ -537,7 +538,7 @@ export default function Home() {
                 X
               </a>
               <a
-                className="transition hover:text-white"
+                className={footerLinkClass}
                 href="https://dribbble.com"
                 target="_blank"
                 rel="noreferrer"
@@ -549,7 +550,7 @@ export default function Home() {
               href="https://forms.gle/t7dCtuDMzsnx37N76"
               target="_blank"
               rel="noreferrer"
-              className="text-cyan transition hover:text-white"
+              className="text-cyan transition-colors duration-300 hover:text-white"
             >
               Careers Application
             </a>
