@@ -30,6 +30,11 @@ const roles = [
 
 const logoSrc =
   "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
+const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
+const logoFrameClass = "relative h-10 w-28 shrink-0 sm:h-11 sm:w-32";
+const logoInnerClass = "relative h-full w-full box-border p-1";
+const logoImageClass =
+  "object-contain transition duration-300 ease-out brightness-110 drop-shadow-[0_0_6px_rgba(88,230,255,0.35)] group-hover:scale-[1.03] group-hover:brightness-125 group-hover:drop-shadow-[0_0_18px_rgba(88,230,255,0.65)]";
 
 const features = [
   "Work on futuristic technologies",
@@ -79,15 +84,20 @@ export default function Home() {
       <div className="pointer-events-none absolute -top-40 right-0 h-[480px] w-[480px] hero-orb opacity-70" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8 sm:px-10">
-        <div className="flex items-center gap-3">
-          <Image
-            src={logoSrc}
-            alt="Quantum Cloud logo"
-            width={40}
-            height={40}
-            className="h-10 w-10"
-            priority
-          />
+        <div className="group flex items-center gap-3">
+          <div className={logoFrameClass}>
+            <div className={logoInnerClass}>
+              <Image
+                src={logoSrc}
+                alt="Quantum Cloud logo"
+                fill
+                sizes="(max-width: 640px) 112px, 128px"
+                className={logoImageClass}
+                quality={100}
+                priority
+              />
+            </div>
+          </div>
           <div>
             <p className="text-sm text-cyan/80">Quantum Cloud</p>
             <p className="text-xs uppercase tracking-[0.3em] text-white/40">
@@ -367,14 +377,19 @@ export default function Home() {
       >
         <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <Image
-                src={logoSrc}
-                alt="Quantum Cloud logo"
-                width={40}
-                height={40}
-                className="h-10 w-10"
-              />
+            <div className="group flex items-center gap-3">
+              <div className={logoFrameClass}>
+                <div className={logoInnerClass}>
+                  <Image
+                    src={logoSrc}
+                    alt="Quantum Cloud logo"
+                    fill
+                    sizes="(max-width: 640px) 112px, 128px"
+                    className={logoImageClass}
+                    quality={100}
+                  />
+                </div>
+              </div>
               <div>
                 <p className="text-sm text-cyan/80">Quantum Cloud</p>
                 <p className="text-xs uppercase tracking-[0.3em] text-white/40">
@@ -434,14 +449,23 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-4 text-sm text-white/60">
             <p className="uppercase tracking-[0.3em] text-white/40">Social</p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <a
-                className="transition hover:text-white"
-                href="https://www.linkedin.com"
+                className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan/30 bg-white/5 text-cyan/70 transition duration-300 ease-out hover:-translate-y-0.5 hover:border-cyan/70 hover:text-white hover:shadow-[0_0_20px_rgba(88,230,255,0.6)]"
+                href={linkedinUrl}
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Quantum Cloud on LinkedIn"
               >
-                LinkedIn
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4 transition duration-300 ease-out group-hover:scale-110"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20.45 20.45h-3.55v-5.4c0-1.29-.03-2.95-1.8-2.95-1.8 0-2.08 1.41-2.08 2.86v5.49H9.47V9h3.4v1.56h.05c.47-.9 1.6-1.85 3.3-1.85 3.53 0 4.18 2.33 4.18 5.36v6.38zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z" />
+                </svg>
+                <span className="sr-only">LinkedIn</span>
               </a>
               <a
                 className="transition hover:text-white"
