@@ -121,16 +121,16 @@ export default function WhyJoin() {
             <a
               href="https://forms.gle/t7dCtuDMzsnx37N76"
               target="_blank"
-              rel="noreferrer"
-              className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+              rel="noopener noreferrer"
+              className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)] active:scale-95"
             >
               Apply Now
             </a>
             <Link
               href="/careers"
               target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-cyan/60 hover:text-white"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-cyan/60 hover:text-white active:scale-95"
             >
               Explore Careers
             </Link>
