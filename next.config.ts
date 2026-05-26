@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/user-attachments/assets/**",
+      },
+      {
+        protocol: "https",
+        hostname: "github-production-user-asset-*.s3.amazonaws.com",
+        pathname: "/**",
+      },
     ],
   },
 };

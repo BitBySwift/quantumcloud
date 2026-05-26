@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -26,6 +27,9 @@ const roles = [
   "DevOps Engineer",
   "AI/ML Engineer",
 ];
+
+const logoSrc =
+  "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
 
 const features = [
   "Work on futuristic technologies",
@@ -76,9 +80,14 @@ export default function Home() {
 
       <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8 sm:px-10">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan/40 bg-white/5 text-sm font-semibold text-cyan">
-            QC
-          </span>
+          <Image
+            src={logoSrc}
+            alt="Quantum Cloud logo"
+            width={40}
+            height={40}
+            className="h-10 w-10"
+            priority
+          />
           <div>
             <p className="text-sm text-cyan/80">Quantum Cloud</p>
             <p className="text-xs uppercase tracking-[0.3em] text-white/40">
@@ -359,9 +368,13 @@ export default function Home() {
         <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan/40 bg-white/5 text-sm font-semibold text-cyan">
-                QC
-              </span>
+              <Image
+                src={logoSrc}
+                alt="Quantum Cloud logo"
+                width={40}
+                height={40}
+                className="h-10 w-10"
+              />
               <div>
                 <p className="text-sm text-cyan/80">Quantum Cloud</p>
                 <p className="text-xs uppercase tracking-[0.3em] text-white/40">
