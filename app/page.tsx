@@ -477,11 +477,11 @@ export default function Home() {
             </Link>
             <Link
               className={footerLinkClass}
-              href="/contact"
+              href="/contact#contact-form"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Contact
+              Contact Us
             </Link>
             <Link
               className={footerLinkClass}
