@@ -28,6 +28,17 @@ const roles = [
   "AI/ML Engineer",
 ];
 
+const specialties = [
+  "Mobile App Development",
+  "Website Development",
+  "Cloud Engineering",
+  "UI/UX Design",
+  "AI-based Solutions",
+  "Custom Software Systems",
+  "SaaS Platforms",
+  "Enterprise Solutions",
+];
+
 const logoSrc =
   "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
 const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
@@ -49,13 +60,6 @@ const features = [
   "High growth opportunities",
   "Flexible creative workspace",
   "Elite engineering culture",
-];
-
-const stats = [
-  { label: "Since", value: "2010" },
-  { label: "Global Projects", value: "140+" },
-  { label: "Engineers & Innovators", value: "320+" },
-  { label: "AI Driven Solutions", value: "90%" },
 ];
 
 const easing = [0.16, 1, 0.3, 1] as const;
@@ -110,8 +114,8 @@ export default function Home() {
           </div>
         </div>
         <nav className="hidden items-center gap-6 text-sm text-white/60 md:flex">
-          <a className={footerLinkClass} href="#about">
-            About
+          <a className={footerLinkClass} href="#about-us">
+            About Us
           </a>
           <a className={footerLinkClass} href="#services">
             Services
@@ -206,43 +210,42 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <section
+          id="about-us"
+          className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]"
+        >
           <motion.div {...fadeUp} className="flex flex-col gap-6">
             <p className="text-sm uppercase tracking-[0.4em] text-cyan/70">
-              About Quantum Cloud
+              Company Introduction
             </p>
             <h2 className="section-title text-3xl font-semibold text-white sm:text-4xl">
-              Private software engineering with cinematic ambition.
+              Premium engineering, cinematic design, and future-ready systems.
             </h2>
             <p className="text-white/70">
-              Quantum Cloud builds advanced software products across AI,
-              intelligent systems, cloud infrastructure, and modern applications.
-              We hire elite engineers, designers, and innovators worldwide to
-              deliver mission-critical solutions with precision.
+              Quantum Cloud blends modern technologies with innovation-first
+              strategy to deliver premium user experiences, scalable digital
+              ecosystems, and intelligent products for global businesses.
             </p>
             <p className="text-white/70">
-              Our mission is to engineer bold future-facing experiences that
-              elevate industries and accelerate technological evolution.
+              We specialize in next-generation application development and
+              believe in futuristic digital transformation powered by quality
+              execution, intelligent automation, and immersive UI/UX design.
             </p>
           </motion.div>
-          <motion.div
-            {...fadeUp}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-panel glow-card rounded-2xl px-6 py-5"
+          <div className="grid gap-4 sm:grid-cols-2">
+            {specialties.map((item) => (
+              <motion.div
+                key={item}
+                {...fadeUp}
+                className="glass-panel glow-card rounded-2xl px-5 py-5 text-sm text-white/80 transition hover:-translate-y-2 hover:shadow-[0_0_35px_rgba(88,230,255,0.25)]"
               >
-                <p className="text-sm uppercase tracking-[0.3em] text-cyan/70">
-                  {stat.label}
-                </p>
-                <p className="mt-3 text-3xl font-semibold text-white">
-                  {stat.value}
-                </p>
-              </div>
+                <span className="text-xs uppercase tracking-[0.3em] text-cyan/70">
+                  Quantum Service
+                </span>
+                <p className="mt-3 text-base font-semibold text-white">{item}</p>
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
         </section>
 
         <section id="services" className="flex flex-col gap-10">
@@ -411,6 +414,9 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
+            <a className={footerLinkClass} href="#about-us">
+              About Us
+            </a>
             <Link
               className={footerLinkClass}
               href="/about-quantum-cloud#our-story"
