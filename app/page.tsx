@@ -40,7 +40,7 @@ const specialties = [
 ];
 
 const logoSrc =
-  "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
+  "https://github.com/user-attachments/assets/b38ee670-8b2a-4dc4-b971-2cba689c147b";
 const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
 const careersApplicationUrl = "https://forms.gle/t7dCtuDMzsnx37N76";
 const logoFrameClass = "relative h-10 w-24 shrink-0 sm:h-11 sm:w-28";
