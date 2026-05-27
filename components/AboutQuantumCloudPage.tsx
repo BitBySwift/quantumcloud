@@ -353,8 +353,14 @@ export default function AboutQuantumCloudPage() {
         <section className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 px-6 py-12 sm:px-10">
           <div className="pointer-events-none absolute inset-0 gradient-veil opacity-70" />
           <div className="pointer-events-none absolute inset-0 soft-grid opacity-40" />
-          <div className="pointer-events-none absolute -top-16 right-10 h-32 w-32 hero-orb opacity-50 floating-card" />
-          <div className="pointer-events-none absolute bottom-8 left-8 h-28 w-28 hero-orb opacity-35 floating-card delay-2" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-16 right-10 h-32 w-32 hero-orb opacity-50 floating-card"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-8 left-8 h-28 w-28 hero-orb opacity-35 floating-card delay-2"
+          />
           <motion.div {...fadeUp} className="relative z-10 flex flex-col gap-6">
             <p className="text-sm uppercase tracking-[0.4em] text-cyan/70">
               Future Vision
