@@ -114,9 +114,14 @@ export default function Home() {
           </div>
         </div>
         <nav className="hidden items-center gap-6 text-sm text-white/60 md:flex">
-          <a className={footerLinkClass} href="#about-us">
+          <Link
+            className={footerLinkClass}
+            href="/about-quantum-cloud"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             About Us
-          </a>
+          </Link>
           <a className={footerLinkClass} href="#services">
             Services
           </a>
@@ -414,9 +419,14 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
-            <a className={footerLinkClass} href="#about-us">
+            <Link
+              className={footerLinkClass}
+              href="/about-quantum-cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               About Us
-            </a>
+            </Link>
             <Link
               className={footerLinkClass}
               href="/about-quantum-cloud#our-story"

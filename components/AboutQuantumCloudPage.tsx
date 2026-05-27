@@ -16,41 +16,42 @@ const specialties = [
 ];
 
 const growthSignals = [
-  "Growing client network across modern industries",
-  "High satisfaction through premium design standards",
-  "Rapidly expanding services for global enterprises",
-  "Long-term innovation and strategic partnerships",
-  "Future-facing vision for global digital impact",
+  "Rapid growth powered by innovation-led delivery",
+  "Expanding services across cloud, AI, and product engineering",
+  "Strong client satisfaction through premium customer experiences",
+  "High-quality work standards with a modern technology stack",
+  "Future global expansion plans for next-generation markets",
 ];
 
 const values = [
   "Innovation",
   "Transparency",
-  "Performance",
   "Creativity",
+  "Performance",
   "Scalability",
   "Client Satisfaction",
   "Future Technologies",
-  "Premium Quality",
+  "Premium Quality Standards",
 ];
 
 const trustSignals = [
-  "Transparent pricing with zero hidden charges",
-  "Fast delivery with precision sprint execution",
-  "Free maintenance support for long-term success",
-  "Dedicated communication and weekly updates",
-  "High-quality UI/UX crafted for premium brands",
-  "Modern technologies with future-ready stacks",
+  "Transparent pricing with no hidden charges",
+  "Faster delivery through focused sprint execution",
+  "Dedicated support with proactive communication",
+  "Premium UI/UX quality crafted for premium brands",
   "Secure development practices and audits",
-  "Performance optimization at every layer",
+  "Modern technologies with future-ready stacks",
+  "Free maintenance support after launch",
+  "Long-term client relationships and growth partnerships",
+  "Performance optimization for a premium customer experience",
 ];
 
 const stats = [
   { label: "Projects Delivered", value: 180, suffix: "+" },
-  { label: "Client Satisfaction", value: 98, suffix: "%" },
-  { label: "Team Members", value: 65, suffix: "+" },
+  { label: "Happy Clients", value: 120, suffix: "+" },
   { label: "Technologies Used", value: 45, suffix: "+" },
   { label: "Countries Reached", value: 22, suffix: "+" },
+  { label: "Client Satisfaction Rate", value: 98, suffix: "%" },
 ];
 
 const easing = [0.16, 1, 0.3, 1] as const;
@@ -149,10 +150,10 @@ export default function AboutQuantumCloudPage() {
             transformation.
           </motion.h1>
           <motion.p {...fadeUp} className="max-w-3xl text-white/70 sm:text-lg">
-            Quantum Cloud is a rapidly growing futuristic software development
-            company focused on delivering high-performance digital products,
-            scalable cloud solutions, premium UI/UX experiences, and
-            next-generation applications.
+            Quantum Cloud is a rapidly growing next-generation technology
+            company focused on building futuristic digital experiences, scalable
+            cloud systems, high-performance applications, and premium
+            user-focused solutions for modern businesses worldwide.
           </motion.p>
           <motion.div {...fadeUp} className="flex flex-wrap gap-4">
             <Link
@@ -181,14 +182,14 @@ export default function AboutQuantumCloudPage() {
               Premium engineering, cinematic design, and future-ready systems.
             </h2>
             <p className="text-white/70">
-              Quantum Cloud blends modern technologies with innovation-first
-              strategy to deliver premium user experiences, scalable digital
-              ecosystems, and intelligent products for global businesses.
+              We are an innovation-driven company focused on futuristic
+              technologies and premium design standards that elevate every
+              product experience.
             </p>
             <p className="text-white/70">
-              We specialize in next-generation application development and
-              believe in futuristic digital transformation powered by quality
-              execution, intelligent automation, and immersive UI/UX design.
+              Our teams uphold strong development quality with a long-term
+              business vision, making Quantum Cloud a fast-growing digital
+              company trusted by modern clients and startups.
             </p>
           </motion.div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -219,10 +220,10 @@ export default function AboutQuantumCloudPage() {
               A rapid rise fueled by innovation and premium delivery.
             </h2>
             <p className="text-white/70">
-              Quantum Cloud has quickly established itself as an emerging
-              technology-focused company by delivering visually stunning,
-              high-performance, and scalable digital solutions for modern
-              businesses.
+              Since launch, Quantum Cloud has rapidly evolved into a modern
+              technology-focused brand delivering visually stunning,
+              performance-driven digital products and premium customer
+              experiences for global clients.
             </p>
           </motion.div>
           <div className="grid gap-4 md:grid-cols-2">
@@ -247,10 +248,11 @@ export default function AboutQuantumCloudPage() {
               Scaling with premium standards and a future global vision.
             </h2>
             <p className="text-white/70">
-              Our momentum is driven by strong design standards, high client
-              satisfaction, and rapidly expanding services across industries.
-              We continue to grow with a long-term innovation roadmap and a
-              global technology footprint in mind.
+              Our momentum comes from rapid growth, expanding services, and
+              exceptional client satisfaction delivered through premium design
+              standards. We build with a modern technology stack and a future
+              global expansion roadmap while elevating every customer
+              experience.
             </p>
           </motion.div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -275,7 +277,7 @@ export default function AboutQuantumCloudPage() {
               </h2>
             </div>
             <div className="grid gap-6 lg:grid-cols-[0.4fr_0.6fr] lg:items-center">
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-cyan/30 bg-cyan/10 px-6 py-8 text-center text-white">
+              <div className="glass-panel glow-card flex flex-col items-center gap-4 rounded-2xl border border-cyan/30 bg-cyan/10 px-6 py-8 text-center text-white transition hover:-translate-y-2 hover:shadow-[0_0_35px_rgba(88,230,255,0.35)]">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full border border-cyan/40 bg-[#05131f] text-2xl text-cyan">
                   AS
                 </div>
@@ -288,11 +290,10 @@ export default function AboutQuantumCloudPage() {
               </div>
               <div className="glass-panel glow-card rounded-2xl px-6 py-8 text-white/70">
                 <p className="text-lg font-semibold text-white">
-                  “Quantum Cloud was created with a vision to build futuristic
-                  digital experiences that combine innovation, performance, and
-                  premium design quality. Our mission is to help businesses and
-                  startups grow using modern technology and intelligent digital
-                  solutions.”
+                  “Quantum Cloud was founded with a passion for technology and a
+                  future-focused mindset. We lead with innovation to build
+                  modern digital experiences and remain committed to premium
+                  quality, performance, and long-term client success.”
                 </p>
                 <p className="mt-4 text-sm text-white/60">
                   — Abdul Shamad Siddque
@@ -352,6 +353,8 @@ export default function AboutQuantumCloudPage() {
         <section className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 px-6 py-12 sm:px-10">
           <div className="pointer-events-none absolute inset-0 gradient-veil opacity-70" />
           <div className="pointer-events-none absolute inset-0 soft-grid opacity-40" />
+          <div className="pointer-events-none absolute -top-16 right-10 h-32 w-32 hero-orb opacity-50 floating-card" />
+          <div className="pointer-events-none absolute bottom-8 left-8 h-28 w-28 hero-orb opacity-35 floating-card delay-2" />
           <motion.div {...fadeUp} className="relative z-10 flex flex-col gap-6">
             <p className="text-sm uppercase tracking-[0.4em] text-cyan/70">
               Future Vision
@@ -359,11 +362,12 @@ export default function AboutQuantumCloudPage() {
             <h2 className="section-title text-3xl font-semibold text-white sm:text-4xl">
               Building the next generation of premium digital ecosystems.
             </h2>
+            <motion.div {...fadeUp} className="scroll-divider h-px w-full max-w-md" />
             <p className="max-w-3xl text-white/70">
-              Quantum Cloud aims to become a globally recognized technology
-              brand delivering advanced digital solutions, premium applications,
-              AI-powered systems, and scalable cloud infrastructure for the next
-              generation.
+              Quantum Cloud aims to become a globally recognized futuristic
+              technology company delivering advanced software systems,
+              intelligent cloud solutions, premium mobile applications, and
+              AI-powered digital experiences for the next generation.
             </p>
           </motion.div>
         </section>
