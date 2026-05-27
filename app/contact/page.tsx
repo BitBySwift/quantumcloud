@@ -73,6 +73,11 @@ const fadeUp = {
 const inputClasses =
   "mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80 placeholder:text-white/40 focus:border-cyan/60 focus:outline-none";
 
+const toastDurationMs = 5000;
+const minMobileDigits = 7;
+const maxMobileDigits = 15;
+const defaultErrorMessage = "Transmission failed. Please try again shortly.";
+
 const formEndpoint =
   process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ??
   "https://formspree.io/f/mqejgnoj";
@@ -122,7 +127,7 @@ export default function ContactPage() {
     }
     toastTimeoutRef.current = setTimeout(() => {
       setToastMessage("");
-    }, 5000);
+    }, toastDurationMs);
   };
 
   const handleChange = (
@@ -157,7 +162,7 @@ export default function ContactPage() {
       nextErrors.mobile = "Enter a valid mobile number.";
     } else {
       const digitCount = values.mobile.replace(/\D/g, "").length;
-      if (digitCount < 7 || digitCount > 15) {
+      if (digitCount < minMobileDigits || digitCount > maxMobileDigits) {
         nextErrors.mobile = "Enter a valid mobile number.";
       }
     }
@@ -196,14 +201,14 @@ export default function ContactPage() {
       });
 
       if (!response.ok) {
-        let message = "Transmission failed. Please try again shortly.";
+        let message = defaultErrorMessage;
         try {
           const data = await response.json();
           if (data?.errors?.[0]?.message) {
             message = data.errors[0].message;
           }
         } catch {
-          message = "Transmission failed. Please try again shortly.";
+          message = defaultErrorMessage;
         }
         throw new Error(message);
       }
@@ -215,7 +220,7 @@ export default function ContactPage() {
       const message =
         error instanceof Error
           ? error.message
-          : "Transmission failed. Please try again shortly.";
+          : defaultErrorMessage;
       showToast(message);
     } finally {
       setIsSubmitting(false);
