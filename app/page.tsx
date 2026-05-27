@@ -31,6 +31,7 @@ const roles = [
 const logoSrc =
   "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
 const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
+const careersApplicationUrl = "https://forms.gle/t7dCtuDMzsnx37N76";
 const logoFrameClass = "relative h-10 w-24 shrink-0 sm:h-11 sm:w-28";
 const logoInnerClass = "relative h-full w-full box-border p-1";
 const logoImageClass =
@@ -310,21 +311,19 @@ export default function Home() {
           </div>
           <motion.div {...fadeUp} className="flex flex-wrap gap-4">
             <a
-              href="https://forms.gle/t7dCtuDMzsnx37N76"
+              href={careersApplicationUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)] active:scale-95"
             >
               Apply Now
             </a>
-            <Link
-              href="/why-join"
-              target="_blank"
-              rel="noopener noreferrer"
+            <a
+              href="#why-join"
               className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-cyan/60 hover:text-white active:scale-95"
             >
               Why Join QC
-            </Link>
+            </a>
           </motion.div>
         </section>
 
@@ -414,14 +413,6 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4 text-sm text-white/60">
             <Link
               className={footerLinkClass}
-              href="/about-quantum-cloud#about-us"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              About Us
-            </Link>
-            <Link
-              className={footerLinkClass}
               href="/about-quantum-cloud#our-story"
               target="_blank"
               rel="noopener noreferrer"
@@ -435,14 +426,6 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               Founder Message
-            </Link>
-            <Link
-              className={footerLinkClass}
-              href="/#about"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              About
             </Link>
             <Link
               className={footerLinkClass}
@@ -547,7 +530,7 @@ export default function Home() {
               </a>
             </div>
             <a
-              href="https://forms.gle/t7dCtuDMzsnx37N76"
+              href={careersApplicationUrl}
               target="_blank"
               rel="noreferrer"
               className="text-cyan transition-colors duration-300 hover:text-white"
