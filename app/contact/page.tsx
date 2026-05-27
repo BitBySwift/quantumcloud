@@ -73,7 +73,9 @@ const fadeUp = {
 const inputClasses =
   "mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80 placeholder:text-white/40 focus:border-cyan/60 focus:outline-none";
 
-const formEndpoint = "https://formspree.io/f/mqejgnoj";
+const formEndpoint =
+  process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ??
+  "https://formspree.io/f/mqejgnoj";
 
 type FormValues = {
   fullName: string;
@@ -139,7 +141,7 @@ export default function ContactPage() {
   const validateForm = (values: FormValues) => {
     const nextErrors: FormErrors = {};
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const mobilePattern = /^[+]?[\d\s().-]{7,}$/;
+    const mobilePattern = /^[+]?[\d\s().-]+$/;
 
     if (!values.fullName.trim()) {
       nextErrors.fullName = "Full name is required.";
@@ -153,6 +155,11 @@ export default function ContactPage() {
       nextErrors.mobile = "Mobile number is required.";
     } else if (!mobilePattern.test(values.mobile)) {
       nextErrors.mobile = "Enter a valid mobile number.";
+    } else {
+      const digitCount = values.mobile.replace(/\D/g, "").length;
+      if (digitCount < 7 || digitCount > 15) {
+        nextErrors.mobile = "Enter a valid mobile number.";
+      }
     }
     if (!values.message.trim()) {
       nextErrors.message = "Please share your project goals.";
@@ -189,10 +196,15 @@ export default function ContactPage() {
       });
 
       if (!response.ok) {
-        const data = await response.json().catch(() => null);
-        const message =
-          data?.errors?.[0]?.message ??
-          "Transmission failed. Please try again shortly.";
+        let message = "Transmission failed. Please try again shortly.";
+        try {
+          const data = await response.json();
+          if (data?.errors?.[0]?.message) {
+            message = data.errors[0].message;
+          }
+        } catch {
+          message = "Transmission failed. Please try again shortly.";
+        }
         throw new Error(message);
       }
 
