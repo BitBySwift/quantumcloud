@@ -4,7 +4,7 @@ import PageTransition from "@/components/PageTransition";
 import "./globals.css";
 
 const logoFavicon =
-  "https://github.com/user-attachments/assets/f3ece80f-f5e2-4ac0-bfb1-d74745a88ac1";
+  "https://github.com/user-attachments/assets/b38ee670-8b2a-4dc4-b971-2cba689c147b";
 
 export const metadata: Metadata = {
   title: "Quantum Cloud — Beyond Limits",
