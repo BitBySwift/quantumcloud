@@ -409,12 +409,12 @@ export default function Home() {
               Private software development & advanced technology company.
             </p>
             <p className="text-sm text-white/60">
-              <a className={footerLinkClass} href="mailto:contact@quantumcloud.ai">
-                contact@quantumcloud.ai
+              <a className={footerLinkClass} href="mailto:quantumcloud.help@gmail.com">
+                quantumcloud.help@gmail.com
               </a>
               <span className="px-2 text-white/30">•</span>
-              <a className={footerLinkClass} href="tel:+14155550199">
-                +1 (415) 555-0199
+              <a className={footerLinkClass} href="tel:+917081847882">
+                +91 7081847882
               </a>
             </p>
           </div>
