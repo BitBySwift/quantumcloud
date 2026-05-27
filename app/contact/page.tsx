@@ -15,7 +15,7 @@ const engagementCards = [
     title: "Contact Information",
     description:
       "Reach our concierge team for direct access to leadership and response within one business day.",
-    items: ["contact@quantumcloud.ai", "+1 (415) 555-0199", "Global Remote Studio"],
+    items: ["quantumcloud.team@gmail.com", "+91 7081847882", "Global Remote Studio"],
   },
   {
     title: "Business Inquiry",
