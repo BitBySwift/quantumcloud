@@ -317,22 +317,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-          <motion.div {...fadeUp} className="flex flex-wrap gap-4">
-            <a
-              href={careersApplicationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)] active:scale-95"
-            >
-              Apply Now
-            </a>
-            <a
-              href="#why-join"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-cyan/60 hover:text-white active:scale-95"
-            >
-              Why Join QC
-            </a>
-          </motion.div>
         </section>
 
         <section id="why-join" className="flex flex-col gap-10">
