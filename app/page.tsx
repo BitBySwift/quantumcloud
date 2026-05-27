@@ -43,8 +43,8 @@ const logoSrc =
   "https://github.com/user-attachments/assets/b38ee670-8b2a-4dc4-b971-2cba689c147b";
 const linkedinUrl = "https://linkedin.com/company/quantum-cloud-official";
 const careersApplicationUrl = "https://forms.gle/t7dCtuDMzsnx37N76";
-const logoFrameClass = "relative h-10 w-24 shrink-0 sm:h-11 sm:w-28";
-const logoInnerClass = "relative h-full w-full box-border p-1";
+const logoFrameClass = "relative h-10 w-20 shrink-0 sm:h-11 sm:w-24";
+const logoInnerClass = "relative h-full w-full";
 const logoImageClass =
   "object-contain transition duration-300 ease-out brightness-110 drop-shadow-[0_0_6px_rgba(88,230,255,0.35)] group-hover:scale-[1.03] group-hover:brightness-125 group-hover:drop-shadow-[0_0_18px_rgba(88,230,255,0.65)]";
 const brandGroupClass = "group flex items-center gap-2 sm:gap-3";
@@ -101,7 +101,7 @@ export default function Home() {
                 src={logoSrc}
                 alt="Quantum Cloud logo"
                 fill
-                sizes="(max-width: 640px) 112px, 128px"
+                sizes="(max-width: 640px) 96px, 112px"
                 className={logoImageClass}
                 quality={100}
                 priority
@@ -378,7 +378,7 @@ export default function Home() {
                     src={logoSrc}
                     alt="Quantum Cloud logo"
                     fill
-                    sizes="(max-width: 640px) 112px, 128px"
+                    sizes="(max-width: 640px) 96px, 112px"
                     className={logoImageClass}
                     quality={100}
                   />
