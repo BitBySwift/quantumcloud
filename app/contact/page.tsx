@@ -2,6 +2,13 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 const engagementCards = [
   {
@@ -66,7 +73,143 @@ const fadeUp = {
 const inputClasses =
   "mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80 placeholder:text-white/40 focus:border-cyan/60 focus:outline-none";
 
+const formEndpoint = "https://formspree.io/f/mqejgnoj";
+
+type FormValues = {
+  fullName: string;
+  email: string;
+  mobile: string;
+  country: string;
+  projectType: string;
+  preferredContactTime: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormValues, string>>;
+
+const initialFormValues: FormValues = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  country: "",
+  projectType: "",
+  preferredContactTime: "",
+  message: "",
+};
+
 export default function ContactPage() {
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage("");
+    }, 5000);
+  };
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormValues]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+    if (successMessage) {
+      setSuccessMessage("");
+    }
+  };
+
+  const validateForm = (values: FormValues) => {
+    const nextErrors: FormErrors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobilePattern = /^[+]?[\d\s().-]{7,}$/;
+
+    if (!values.fullName.trim()) {
+      nextErrors.fullName = "Full name is required.";
+    }
+    if (!values.email.trim()) {
+      nextErrors.email = "Email address is required.";
+    } else if (!emailPattern.test(values.email)) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+    if (!values.mobile.trim()) {
+      nextErrors.mobile = "Mobile number is required.";
+    } else if (!mobilePattern.test(values.mobile)) {
+      nextErrors.mobile = "Enter a valid mobile number.";
+    }
+    if (!values.message.trim()) {
+      nextErrors.message = "Please share your project goals.";
+    }
+
+    return nextErrors;
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
+    const validationErrors = validateForm(formValues);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrors({});
+    setSuccessMessage("");
+    try {
+      const payload = new FormData();
+      Object.entries(formValues).forEach(([key, value]) => {
+        payload.append(key, value);
+      });
+
+      const response = await fetch(formEndpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        const message =
+          data?.errors?.[0]?.message ??
+          "Transmission failed. Please try again shortly.";
+        throw new Error(message);
+      }
+
+      setFormValues(initialFormValues);
+      setSuccessMessage("Transmission Received Successfully");
+      setToastMessage("");
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Transmission failed. Please try again shortly.";
+      showToast(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#05060a] px-6 py-16 text-white sm:px-10">
       <div className="pointer-events-none absolute inset-0 starfield opacity-35" />
@@ -212,7 +355,10 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="glass-panel glow-card rounded-[28px] px-6 py-10 sm:px-10">
+        <section
+          id="contact-form"
+          className="glass-panel glow-card rounded-[28px] px-6 py-10 sm:px-10"
+        >
           <motion.div {...fadeUp} className="flex flex-col gap-4">
             <p className="text-sm uppercase tracking-[0.4em] text-cyan/70">
               Contact Form
@@ -228,34 +374,88 @@ export default function ContactPage() {
           <motion.form
             {...fadeUp}
             className="mt-8 grid gap-6 md:grid-cols-2"
+            noValidate
+            onSubmit={handleSubmit}
           >
             <label className="text-sm text-white/70">
               Full Name
-              <input className={inputClasses} placeholder="Full name" type="text" />
+              <input
+                className={inputClasses}
+                name="fullName"
+                placeholder="Full name"
+                type="text"
+                value={formValues.fullName}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.fullName)}
+                aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                required
+              />
+              {errors.fullName && (
+                <span
+                  id="fullName-error"
+                  className="mt-2 block text-xs text-rose-200"
+                >
+                  {errors.fullName}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70">
               Email Address
               <input
                 className={inputClasses}
+                name="email"
                 placeholder="Email address"
                 type="email"
+                value={formValues.email}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                required
               />
+              {errors.email && (
+                <span id="email-error" className="mt-2 block text-xs text-rose-200">
+                  {errors.email}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70">
               Mobile Number
               <input
                 className={inputClasses}
+                name="mobile"
                 placeholder="Mobile number"
                 type="tel"
+                value={formValues.mobile}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.mobile)}
+                aria-describedby={errors.mobile ? "mobile-error" : undefined}
+                required
               />
+              {errors.mobile && (
+                <span id="mobile-error" className="mt-2 block text-xs text-rose-200">
+                  {errors.mobile}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70">
               Country
-              <input className={inputClasses} placeholder="Country" type="text" />
+              <input
+                className={inputClasses}
+                name="country"
+                placeholder="Country"
+                type="text"
+                value={formValues.country}
+                onChange={handleChange}
+              />
             </label>
             <label className="text-sm text-white/70">
               Project Type
-              <select className={inputClasses} defaultValue="">
+              <select
+                className={inputClasses}
+                name="projectType"
+                value={formValues.projectType}
+                onChange={handleChange}
+              >
                 <option value="" disabled>
                   Select a project type
                 </option>
@@ -268,7 +468,12 @@ export default function ContactPage() {
             </label>
             <label className="text-sm text-white/70">
               Preferred Contact Time
-              <select className={inputClasses} defaultValue="">
+              <select
+                className={inputClasses}
+                name="preferredContactTime"
+                value={formValues.preferredContactTime}
+                onChange={handleChange}
+              >
                 <option value="" disabled>
                   Choose a time window
                 </option>
@@ -283,20 +488,62 @@ export default function ContactPage() {
               Message
               <textarea
                 className={`${inputClasses} min-h-[140px] resize-none`}
+                name="message"
                 placeholder="Tell us about your goals, timeline, and expectations."
+                value={formValues.message}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.message)}
+                aria-describedby={errors.message ? "message-error" : undefined}
+                required
               />
+              {errors.message && (
+                <span
+                  id="message-error"
+                  className="mt-2 block text-xs text-rose-200"
+                >
+                  {errors.message}
+                </span>
+              )}
             </label>
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="glow-button rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+                className={`glow-button flex items-center justify-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition ${
+                  isSubmitting
+                    ? "cursor-not-allowed opacity-70"
+                    : "hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+                }`}
+                disabled={isSubmitting}
               >
-                Submit Inquiry
+                {isSubmitting && (
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#031018]/80 border-t-transparent" />
+                )}
+                <span>{isSubmitting ? "Transmitting..." : "Submit Inquiry"}</span>
               </button>
             </div>
+            {successMessage && (
+              <motion.div
+                className="md:col-span-2 rounded-2xl border border-cyan/40 bg-cyan/10 px-4 py-4 text-center text-sm uppercase tracking-[0.3em] text-cyan/80 shadow-[0_0_30px_rgba(88,230,255,0.35)]"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: easing }}
+              >
+                {successMessage}
+              </motion.div>
+            )}
           </motion.form>
         </section>
       </main>
+      {toastMessage && (
+        <motion.div
+          className="fixed bottom-6 right-6 z-50 max-w-sm rounded-2xl border border-rose-500/40 bg-[#12070b]/90 px-4 py-3 text-sm text-rose-100 shadow-[0_0_30px_rgba(255,90,120,0.35)] backdrop-blur"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          {toastMessage}
+        </motion.div>
+      )}
     </div>
   );
 }
