@@ -81,9 +81,14 @@ const defaultErrorMessage = "Transmission failed. Please try again shortly.";
 const successMessageText =
   "Your inquiry has been submitted successfully. Quantum Cloud team will contact you shortly.";
 
-const emailServiceId = "service_5ode2j7";
-const emailTemplateId = "template_fs6c2fr";
-const emailPublicKey = "UQxzgxG9khq513W3H";
+const emailServiceId =
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "service_5ode2j7";
+const emailTemplateId =
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "template_fs6c2fr";
+const emailPublicKey =
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "UQxzgxG9khq513W3H";
+const emailRecipient =
+  process.env.NEXT_PUBLIC_EMAILJS_TO_EMAIL ?? "quantumcloud.team@gmail.com";
 
 type FormValues = {
   fullName: string;
@@ -214,7 +219,7 @@ export default function ContactPage() {
           project_type: formValues.projectType,
           preferred_contact_time: formValues.preferredContactTime,
           message: formValues.message,
-          to_email: "quantumcloud.team@gmail.com",
+          to_email: emailRecipient,
         },
         emailPublicKey,
       );
