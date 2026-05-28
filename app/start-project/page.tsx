@@ -1,5 +1,14 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+import emailjs from "@emailjs/browser";
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 const projectTypes = [
   "Website Development",
@@ -171,8 +180,172 @@ const faqs = [
 const inputClasses =
   "mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80 placeholder:text-white/40 focus:border-cyan/60 focus:outline-none";
 
+const toastDurationMs = 5000;
+const minMobileDigits = 7;
+const maxMobileDigits = 15;
+const defaultErrorMessage = "Transmission failed. Please try again shortly.";
+const successMessageText =
+  "Your inquiry has been submitted successfully. Quantum Cloud team will contact you shortly.";
+
+const emailServiceId = "service_5ode2j7";
+const emailTemplateId = "template_fs6c2fr";
+const emailPublicKey = "UQxzgxG9khq513W3H";
+
+type FormValues = {
+  fullName: string;
+  email: string;
+  mobile: string;
+  country: string;
+  company: string;
+  projectType: string;
+  preferredContactTime: string;
+  timeline: string;
+  budget: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormValues, string>>;
+
+const initialFormValues: FormValues = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  country: "",
+  company: "",
+  projectType: "",
+  preferredContactTime: "",
+  timeline: "",
+  budget: "",
+  message: "",
+};
+
 export default function StartProject() {
   const loopingTestimonials = [...testimonials, ...testimonials];
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage("");
+    }, toastDurationMs);
+  };
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormValues]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+    if (successMessage) {
+      setSuccessMessage("");
+    }
+  };
+
+  const validateForm = (values: FormValues) => {
+    const nextErrors: FormErrors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobilePattern = /^[+]?[\d\s().-]+$/;
+
+    if (!values.fullName.trim()) {
+      nextErrors.fullName = "Full name is required.";
+    }
+    if (!values.email.trim()) {
+      nextErrors.email = "Email address is required.";
+    } else if (!emailPattern.test(values.email)) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+    if (!values.mobile.trim()) {
+      nextErrors.mobile = "Mobile number is required.";
+    } else if (!mobilePattern.test(values.mobile)) {
+      nextErrors.mobile = "Enter a valid mobile number.";
+    } else {
+      const digitCount = values.mobile.replace(/\D/g, "").length;
+      if (digitCount < minMobileDigits || digitCount > maxMobileDigits) {
+        nextErrors.mobile = "Enter a valid mobile number.";
+      }
+    }
+    if (!values.country.trim()) {
+      nextErrors.country = "Country is required.";
+    }
+    if (!values.projectType.trim()) {
+      nextErrors.projectType = "Project type is required.";
+    }
+    if (!values.preferredContactTime.trim()) {
+      nextErrors.preferredContactTime = "Preferred contact time is required.";
+    }
+    if (!values.message.trim()) {
+      nextErrors.message = "Please share your project requirements.";
+    }
+
+    return nextErrors;
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
+    const validationErrors = validateForm(formValues);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrors({});
+    setSuccessMessage("");
+    try {
+      await emailjs.send(
+        emailServiceId,
+        emailTemplateId,
+        {
+          form_type: "Start Project",
+          from_name: formValues.fullName,
+          reply_to: formValues.email,
+          email: formValues.email,
+          mobile: formValues.mobile,
+          country: formValues.country,
+          company: formValues.company,
+          project_type: formValues.projectType,
+          preferred_contact_time: formValues.preferredContactTime,
+          timeline: formValues.timeline,
+          budget: formValues.budget,
+          message: formValues.message,
+          to_email: "quantumcloud.team@gmail.com",
+        },
+        emailPublicKey,
+      );
+
+      setFormValues(initialFormValues);
+      setSuccessMessage(successMessageText);
+      setToastMessage("");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : defaultErrorMessage;
+      showToast(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen bg-[#05060a] px-6 py-16 text-white sm:px-10">
@@ -207,19 +380,28 @@ export default function StartProject() {
           </div>
           <form
             className="mt-8 flex flex-col gap-6"
-            action="#"
-            method="post"
+            noValidate
+            onSubmit={handleSubmit}
           >
             <div className="grid gap-5 md:grid-cols-2">
               <label className="text-sm text-white/70">
-                Client Name
+                Full Name
                 <input
                   className={inputClasses}
-                  name="clientName"
+                  name="fullName"
                   type="text"
                   placeholder="Your full name"
+                  value={formValues.fullName}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.fullName)}
+                  aria-describedby={errors.fullName ? "fullName-error" : undefined}
                   required
                 />
+                {errors.fullName && (
+                  <span id="fullName-error" className="mt-2 block text-xs text-rose-200">
+                    {errors.fullName}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Email Address
@@ -228,8 +410,17 @@ export default function StartProject() {
                   name="email"
                   type="email"
                   placeholder="you@company.com"
+                  value={formValues.email}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   required
                 />
+                {errors.email && (
+                  <span id="email-error" className="mt-2 block text-xs text-rose-200">
+                    {errors.email}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Mobile Number
@@ -238,8 +429,17 @@ export default function StartProject() {
                   name="mobile"
                   type="tel"
                   placeholder="+91 98765 43210"
+                  value={formValues.mobile}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.mobile)}
+                  aria-describedby={errors.mobile ? "mobile-error" : undefined}
                   required
                 />
+                {errors.mobile && (
+                  <span id="mobile-error" className="mt-2 block text-xs text-rose-200">
+                    {errors.mobile}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Country
@@ -248,8 +448,17 @@ export default function StartProject() {
                   name="country"
                   type="text"
                   placeholder="Country"
+                  value={formValues.country}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.country)}
+                  aria-describedby={errors.country ? "country-error" : undefined}
                   required
                 />
+                {errors.country && (
+                  <span id="country-error" className="mt-2 block text-xs text-rose-200">
+                    {errors.country}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Company Name (optional)
@@ -258,32 +467,77 @@ export default function StartProject() {
                   name="company"
                   type="text"
                   placeholder="Company or startup"
+                  value={formValues.company}
+                  onChange={handleChange}
                 />
               </label>
               <label className="text-sm text-white/70">
                 Project Type
-                <select className={inputClasses} name="projectType" required>
-                  <option value="">Select a project type</option>
+                <select
+                  className={inputClasses}
+                  name="projectType"
+                  value={formValues.projectType}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.projectType)}
+                  aria-describedby={errors.projectType ? "projectType-error" : undefined}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a project type
+                  </option>
                   {projectTypes.map((type) => (
                     <option key={type} value={type}>
                       {type}
                     </option>
                   ))}
                 </select>
+                {errors.projectType && (
+                  <span
+                    id="projectType-error"
+                    className="mt-2 block text-xs text-rose-200"
+                  >
+                    {errors.projectType}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Preferred Contact Time
-                <select className={inputClasses} name="contactTime" required>
-                  <option value="">Select a time</option>
+                <select
+                  className={inputClasses}
+                  name="preferredContactTime"
+                  value={formValues.preferredContactTime}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.preferredContactTime)}
+                  aria-describedby={
+                    errors.preferredContactTime ? "preferredContactTime-error" : undefined
+                  }
+                  required
+                >
+                  <option value="" disabled>
+                    Select a time
+                  </option>
                   <option>Morning</option>
                   <option>Afternoon</option>
                   <option>Evening</option>
                   <option>Flexible</option>
                 </select>
+                {errors.preferredContactTime && (
+                  <span
+                    id="preferredContactTime-error"
+                    className="mt-2 block text-xs text-rose-200"
+                  >
+                    {errors.preferredContactTime}
+                  </span>
+                )}
               </label>
               <label className="text-sm text-white/70">
                 Expected Delivery Timeline
-                <select className={inputClasses} name="timeline" required>
+                <select
+                  className={inputClasses}
+                  name="timeline"
+                  value={formValues.timeline}
+                  onChange={handleChange}
+                >
                   <option value="">Select timeline</option>
                   <option>2-4 weeks</option>
                   <option>1-2 months</option>
@@ -293,7 +547,12 @@ export default function StartProject() {
               </label>
               <label className="text-sm text-white/70 md:col-span-2">
                 Budget Range
-                <select className={inputClasses} name="budget" required>
+                <select
+                  className={inputClasses}
+                  name="budget"
+                  value={formValues.budget}
+                  onChange={handleChange}
+                >
                   <option value="">Select budget</option>
                   <option>₹29,000 - ₹60,000</option>
                   <option>₹60,000 - ₹90,000</option>
@@ -302,21 +561,43 @@ export default function StartProject() {
                 </select>
               </label>
               <label className="text-sm text-white/70 md:col-span-2">
-                Project Requirements
+                Message
                 <textarea
                   className={`${inputClasses} min-h-[140px] resize-none`}
-                  name="requirements"
+                  name="message"
                   placeholder="Describe your goals, features, and expectations."
+                  value={formValues.message}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={errors.message ? "message-error" : undefined}
                   required
                 />
+                {errors.message && (
+                  <span id="message-error" className="mt-2 block text-xs text-rose-200">
+                    {errors.message}
+                  </span>
+                )}
               </label>
             </div>
             <button
               type="submit"
-              className="glow-button w-fit rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+              className={`glow-button flex w-fit items-center justify-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-[#031018] transition ${
+                isSubmitting
+                  ? "cursor-not-allowed opacity-70"
+                  : "hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(88,230,255,0.6)]"
+              }`}
+              disabled={isSubmitting}
             >
-              Submit Inquiry
+              {isSubmitting && (
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#031018]/80 border-t-transparent" />
+              )}
+              <span>{isSubmitting ? "Transmitting..." : "Submit Inquiry"}</span>
             </button>
+            {successMessage && (
+              <div className="rounded-2xl border border-cyan/40 bg-cyan/10 px-4 py-4 text-center text-sm uppercase tracking-[0.3em] text-cyan/80 shadow-[0_0_30px_rgba(88,230,255,0.35)]">
+                {successMessage}
+              </div>
+            )}
           </form>
         </section>
 
@@ -435,6 +716,11 @@ export default function StartProject() {
           </div>
         </section>
       </main>
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 max-w-sm rounded-2xl border border-rose-500/40 bg-[#12070b]/90 px-4 py-3 text-sm text-rose-100 shadow-[0_0_30px_rgba(255,90,120,0.35)] backdrop-blur">
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 }

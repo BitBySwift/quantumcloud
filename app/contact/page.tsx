@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import {
   type ChangeEvent,
   type FormEvent,
@@ -77,10 +78,12 @@ const toastDurationMs = 5000;
 const minMobileDigits = 7;
 const maxMobileDigits = 15;
 const defaultErrorMessage = "Transmission failed. Please try again shortly.";
+const successMessageText =
+  "Your inquiry has been submitted successfully. Quantum Cloud team will contact you shortly.";
 
-const formEndpoint =
-  process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ??
-  "https://formspree.io/f/mqejgnoj";
+const emailServiceId = "service_5ode2j7";
+const emailTemplateId = "template_fs6c2fr";
+const emailPublicKey = "UQxzgxG9khq513W3H";
 
 type FormValues = {
   fullName: string;
@@ -166,6 +169,15 @@ export default function ContactPage() {
         nextErrors.mobile = "Enter a valid mobile number.";
       }
     }
+    if (!values.country.trim()) {
+      nextErrors.country = "Country is required.";
+    }
+    if (!values.projectType.trim()) {
+      nextErrors.projectType = "Project type is required.";
+    }
+    if (!values.preferredContactTime.trim()) {
+      nextErrors.preferredContactTime = "Preferred contact time is required.";
+    }
     if (!values.message.trim()) {
       nextErrors.message = "Please share your project goals.";
     }
@@ -189,32 +201,26 @@ export default function ContactPage() {
     setErrors({});
     setSuccessMessage("");
     try {
-      const payload = new FormData();
-      Object.entries(formValues).forEach(([key, value]) => {
-        payload.append(key, value);
-      });
-
-      const response = await fetch(formEndpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: payload,
-      });
-
-      if (!response.ok) {
-        let message = defaultErrorMessage;
-        try {
-          const data = await response.json();
-          if (data?.errors?.[0]?.message) {
-            message = data.errors[0].message;
-          }
-        } catch {
-          message = defaultErrorMessage;
-        }
-        throw new Error(message);
-      }
+      await emailjs.send(
+        emailServiceId,
+        emailTemplateId,
+        {
+          form_type: "Contact Us",
+          from_name: formValues.fullName,
+          reply_to: formValues.email,
+          email: formValues.email,
+          mobile: formValues.mobile,
+          country: formValues.country,
+          project_type: formValues.projectType,
+          preferred_contact_time: formValues.preferredContactTime,
+          message: formValues.message,
+          to_email: "quantumcloud.team@gmail.com",
+        },
+        emailPublicKey,
+      );
 
       setFormValues(initialFormValues);
-      setSuccessMessage("Transmission Received Successfully");
+      setSuccessMessage(successMessageText);
       setToastMessage("");
     } catch (error) {
       const message =
@@ -463,7 +469,15 @@ export default function ContactPage() {
                 type="text"
                 value={formValues.country}
                 onChange={handleChange}
+                aria-invalid={Boolean(errors.country)}
+                aria-describedby={errors.country ? "country-error" : undefined}
+                required
               />
+              {errors.country && (
+                <span id="country-error" className="mt-2 block text-xs text-rose-200">
+                  {errors.country}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70">
               Project Type
@@ -472,6 +486,9 @@ export default function ContactPage() {
                 name="projectType"
                 value={formValues.projectType}
                 onChange={handleChange}
+                aria-invalid={Boolean(errors.projectType)}
+                aria-describedby={errors.projectType ? "projectType-error" : undefined}
+                required
               >
                 <option value="" disabled>
                   Select a project type
@@ -482,6 +499,14 @@ export default function ContactPage() {
                   </option>
                 ))}
               </select>
+              {errors.projectType && (
+                <span
+                  id="projectType-error"
+                  className="mt-2 block text-xs text-rose-200"
+                >
+                  {errors.projectType}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70">
               Preferred Contact Time
@@ -490,6 +515,11 @@ export default function ContactPage() {
                 name="preferredContactTime"
                 value={formValues.preferredContactTime}
                 onChange={handleChange}
+                aria-invalid={Boolean(errors.preferredContactTime)}
+                aria-describedby={
+                  errors.preferredContactTime ? "preferredContactTime-error" : undefined
+                }
+                required
               >
                 <option value="" disabled>
                   Choose a time window
@@ -500,6 +530,14 @@ export default function ContactPage() {
                   </option>
                 ))}
               </select>
+              {errors.preferredContactTime && (
+                <span
+                  id="preferredContactTime-error"
+                  className="mt-2 block text-xs text-rose-200"
+                >
+                  {errors.preferredContactTime}
+                </span>
+              )}
             </label>
             <label className="text-sm text-white/70 md:col-span-2">
               Message
